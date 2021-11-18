@@ -15,8 +15,8 @@ public class PortfolioConfig {
         return args -> {
             Portfolio portfolio1 = new Portfolio(
                     "have extensive experience as an IT Project Manager and in Software Development.",
-                    "https://twitter.com/Qualisys_/photo",
-                    "https://twitter.com/Qualisys_",
+                    "https://pbs.twimg.com/profile_images/1352347417421754368/59u6g7w5_400x400.jpg",
+                    "Qualisys_",
                     "test Zemoga",
                     null,
                     "experience_summary",
@@ -26,9 +26,9 @@ public class PortfolioConfig {
                     null
             );
             Portfolio portfolio2 = new Portfolio(
-                    "prueba2",
-                    "https://twitter.com/Qualisys_/photo",
-                    "https://twitter.com/Qualisys_",
+                    "Fabian Gomez",
+                    "https://modaellos.com//wp-content/uploads/2020/05/peinado-corto-hombre-600x560.jpg",
+                    "TTA",
                     "prueba",
                     null,
                     "experience_summary",

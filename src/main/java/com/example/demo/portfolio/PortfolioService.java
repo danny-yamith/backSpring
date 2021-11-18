@@ -63,7 +63,7 @@ public class PortfolioService {
                 names.length() > 0 &&
                 !Objects.equals(portfolio.getNames(), names)
         ) {
-            Boolean exits = portfolioRepository.findPortfolioByNames(portfolio.getNames());
+            Boolean exits = portfolioRepository.findPortfolioByNames(names);
             if (exits) {
                 throw new IllegalStateException("names taken");
             }
