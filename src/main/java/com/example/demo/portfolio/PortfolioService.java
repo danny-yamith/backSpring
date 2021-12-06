@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,8 +18,8 @@ public class PortfolioService {
         this.portfolioRepository = portfolioRepository;
     }
 
-    public List<Portfolio> getPortfolios() {
-        return portfolioRepository.findAll();
+    public List<Portfolio> getPortfolios(Integer idportfolio) {
+        return portfolioRepository.findAllById(Collections.singleton(idportfolio));
     }
 
     public Portfolio getPortfolioById(Integer idportfolio) {

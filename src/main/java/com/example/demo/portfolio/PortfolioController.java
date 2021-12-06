@@ -24,7 +24,7 @@ public class PortfolioController {
     // get all portfolios
     @GetMapping
     public List<Portfolio> getPortfolios() {
-        return portfolioService.getPortfolios();
+        return portfolioService.getPortfolios(1);
     }
 
     /* create portfolio rest api*/
