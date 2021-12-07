@@ -17,7 +17,7 @@ public class PortfolioConfig {
                     "have extensive experience as an IT Project Manager and in Software Development.",
                     "https://pbs.twimg.com/profile_images/1352347417421754368/59u6g7w5_400x400.jpg",
                     "Qualisys_",
-                    "test Zemoga",
+                    "test Jobsity",
                     null,
                     "experience_summary",
                     "Pascuaza Ortiz",
