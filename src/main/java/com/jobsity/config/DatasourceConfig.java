@@ -1,4 +1,4 @@
-package com.amigoscode.config;
+package com.jobsity.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

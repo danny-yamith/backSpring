@@ -1,6 +1,6 @@
-package com.amigoscode.movie;
+package com.jobsity.movie;
 
-import com.amigoscode.actor.Actor;
+import com.jobsity.actor.Actor;
 
 import java.time.LocalDate;
 import java.util.List;
