@@ -1,33 +1,24 @@
-# Working with Databases in Java
-- JDBC
-- Datasource
-- Connection Pool
-- Flyway and JDBC Template
+# Working with Back in Java
+Sprint boot 
+    •Java 8 
+    •Jdk 11
+    •Intellij IDE  
+# Working with Front in React
+React Js + Axios 
+    •Vs Studio Code 
 
-# Diagram
-![diagram](https://user-images.githubusercontent.com/40702606/132997719-73170303-30a6-499b-9c59-4143ba0f8439.png)
+Container
+•Docker 
+ 
+for exercise reasons I'm only going to work with a database in docker
+docker pull postgres
+Create folder C:\Users\Danny\jobsity\postgres81221
+docker run -p 5432:5432 --name postgres81221 -v C:\Users\Danny\jobsity\postgres81221:/var/lib/postgresql/data -e POSTGRES_PASSWORD=123 -d postgres
+Github  
 
-# How to get started
-- switch to branch `git checkout start`
-- watch YouTube video
 
-# Exercise
-- Add the ability to edit movies
-- Add `actor` table and associate them with movies
-You will need to create a new migration called: `V1__ActorTable.sql` and the following sql to create the actor table
-```sql
-CREATE TABLE actor
-(
-    id    bigserial primary key,
-    name  TEXT NOT NULL,
-    movie bigint REFERENCES movie (id),
-    unique (name, movie)
-);
-```
-
-# Join the community
-<p>
-    <a href="https://discord.com/invite/S7gXXxq8" alt="Contributors">
-        <img src="https://img.shields.io/discord/699965319883784252" />
-    </a>
-</p>
+Sketch up how you would set up the application using any cloud provider (AWS, Google
+Cloud, etc).
+1.I would work with docker. 
+2.I’ll use github actions 
+ 
