@@ -1,8 +1,11 @@
 package com.example.demo.trip;
 
 import com.example.demo.utils.TripDto;
+import com.example.demo.utils.TripFileDto;
 import com.example.demo.utils.TripRegionDto;
+import com.example.demo.utils.TripWeeklyDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +25,19 @@ public class TripsController {
 
     @PostMapping
     @RequestMapping(path="/processTrips")
-    public String processTrips(@RequestBody TripDto tripDto) throws Exception {
-        return this.tripService.processTrips(tripDto.getPathFile());
+    public String processTrips(@ModelAttribute TripFileDto tripFileDto) throws Exception {
+        return this.tripService.processFile(tripFileDto.getFile());
     }
 
     @GetMapping
     @RequestMapping(path="/getPromTrips")
     public List<TripRegionDto> getPromTrips() throws Exception {
         return this.tripService.getPromTrips();
+    }
+
+    @GetMapping
+    @RequestMapping(path="/getWeekly")
+    public List<TripWeeklyDto> getWeekly(@Param("year") Integer year) throws Exception {
+        return this.tripService.getWeekly(year);
     }
 }

@@ -1,10 +1,11 @@
 package com.example.demo.region;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
-public class Region {
+public class Region implements Serializable {
     @Id
     @SequenceGenerator(
             name = "region_sequence",
@@ -19,6 +20,10 @@ public class Region {
     private String name;
 
     public Region() {
+    }
+
+    public Region(Integer id) {
+        this.id = id;
     }
 
     public Region(Integer id, String name) {

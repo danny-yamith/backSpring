@@ -7,16 +7,18 @@ import com.example.demo.path.PathService;
 import com.example.demo.region.Region;
 import com.example.demo.region.RegionService;
 import com.example.demo.utils.TripRegionDto;
+import com.example.demo.utils.TripWeeklyDto;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -53,7 +55,20 @@ public class TripService {
         return trip;
     }
 
-    public String processTrips(String pathFile) throws Exception {
+    public String processFile(MultipartFile multipartFile) throws Exception {
+        File file = new File("src/main/resources/newFile" + Calendar.getInstance().getTimeInMillis() + ".csv");
+
+        try {
+            try (OutputStream os = new FileOutputStream(file)) {
+                os.write(multipartFile.getBytes());
+            }
+        } catch (Exception e) {
+            return "Error with file";
+        }
+        return processTrips(file.getAbsolutePath(), true);
+    }
+
+    public String processTrips(String pathFile, boolean deleteFile) throws Exception {
         String response = "";
         BufferedReader br = null;
         try {
@@ -121,9 +136,9 @@ public class TripService {
                             new BigDecimal(destins[1]).setScale(10, BigDecimal.ROUND_HALF_UP));
 
                     Trip trip = new Trip();
-                    trip.setId_datasource(datasource.getId());
-                    trip.setId_path(path.getId());
-                    trip.setId_region(region.getId());
+                    trip.setDatasource(new Datasource(datasource.getId()));
+                    trip.setPath(new Path(path.getId()));
+                    trip.setRegion(new Region(region.getId()));
                     tripRepository.save(trip);
                 }
                 line = br.readLine();
@@ -140,11 +155,20 @@ public class TripService {
         if (response == null || response.equals("")) {
             response = "File processed correctly";
         }
+        if(deleteFile) {
+            File fileDel = new File(pathFile);
+            fileDel.delete();
+        }
         return response;
     }
 
     public List<TripRegionDto> getPromTrips() {
-        //List<TripRegionDto> list = tripRepository.getPromTrips();
-        return null;
+        List<TripRegionDto> list = tripRepository.getPromTrips();
+        return list;
+    }
+
+    public List<TripWeeklyDto> getWeekly(Integer year) {
+        List<TripWeeklyDto> list = tripRepository.getWeekly(year);
+        return list;
     }
 }

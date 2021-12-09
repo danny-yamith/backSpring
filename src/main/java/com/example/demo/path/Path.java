@@ -1,12 +1,13 @@
 package com.example.demo.path;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table
-public class Path {
+public class Path implements Serializable {
     @Id
     @SequenceGenerator(
             name = "path_sequence",
@@ -25,6 +26,10 @@ public class Path {
     private BigDecimal destination_lon;
 
     public Path() {
+    }
+
+    public Path(Integer id) {
+        this.id = id;
     }
 
     public Path(Integer id, Date datetime, BigDecimal origin_lat, BigDecimal origin_lon, BigDecimal destination_lat, BigDecimal destination_lon) {

@@ -1,10 +1,11 @@
 package com.example.demo.datasource;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
-public class Datasource {
+public class Datasource implements Serializable {
     @Id
     @SequenceGenerator(
             name = "datasource_sequence",
@@ -19,6 +20,10 @@ public class Datasource {
     private String name;
 
     public Datasource() {
+    }
+
+    public Datasource(Integer id) {
+        this.id = id;
     }
 
     public Datasource(Integer id, String name) {

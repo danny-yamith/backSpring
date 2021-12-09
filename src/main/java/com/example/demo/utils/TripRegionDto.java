@@ -1,22 +1,30 @@
 package com.example.demo.utils;
 
 public class TripRegionDto {
-    private String name;
-    private Integer countTotal;
+    private String regionName;
+    private Long regionTotal;
 
-    public String getName() {
-        return name;
+    public TripRegionDto() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public TripRegionDto(String regionName, Long regionTotal) {
+        this.regionName = regionName;
+        this.regionTotal = regionTotal;
     }
 
-    public Integer getCountTotal() {
-        return countTotal;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setCountTotal(Integer countTotal) {
-        this.countTotal = countTotal;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public Long getRegionTotal() {
+        return regionTotal;
+    }
+
+    public void setRegionTotal(Long regionTotal) {
+        this.regionTotal = regionTotal;
     }
 }

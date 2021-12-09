@@ -1,15 +1,38 @@
 package com.example.demo.trip;
 
-import com.example.demo.utils.TripRegionDto;
+import com.example.demo.datasource.Datasource;
+import com.example.demo.path.Path;
+import com.example.demo.region.Region;
+import com.example.demo.utils.TripWeeklyDto;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-//@NamedNativeQueries(
- //       @NamedNativeQuery(name = "Trip.getPromTrips", query = "SELECT r.\"name\" as name, count(*) as countTotal FROM trip t INNER JOIN region r on r.id = t.id_region GROUP BY r.\"name\"", resultSetMapping = TripRegionDto.class)
-//)
 @Entity
+@NamedNativeQuery(
+        name = "find_weekly_dto",
+        query = "select l.name_region, avg(count_trip) as count_week from ( " +
+                "select r.name as name_region, extract(week from p.datetime) as weekDate, count(*) as count_trip " +
+                "from trip t " +
+                "inner join path p on p.id = t.id_path " +
+                "inner join region r on r.id = t.id_region " +
+                "where extract(year from p.datetime) = :year " +
+                "group by r.name, weekDate) as l " +
+                "group by l.name_region",
+        resultSetMapping = "weekly_dto"
+)
+@SqlResultSetMapping(
+        name = "weekly_dto",
+        classes = @ConstructorResult(
+                targetClass = TripWeeklyDto.class,
+                columns = {
+                        @ColumnResult(name = "name_region", type = String.class),
+                        @ColumnResult(name = "count_week", type = Long.class)
+                }
+        )
+)
 @Table
-public class Trip {
+public class Trip implements Serializable {
     @Id
     @SequenceGenerator(
             name = "trip_sequence",
@@ -21,18 +44,27 @@ public class Trip {
             generator = "trip_sequence"
     )
     private Integer id;
-    private Integer id_region;
-    private Integer id_path;
-    private Integer id_datasource;
+
+    @OneToOne
+    @JoinColumn(name = "id_region")
+    private Region region;
+
+    @OneToOne
+    @JoinColumn(name = "id_path")
+    private Path path;
+
+    @OneToOne
+    @JoinColumn(name = "id_datasource")
+    private Datasource datasource;
 
     public Trip() {
     }
 
-    public Trip(Integer id, Integer id_region, Integer id_path, Integer id_datasource) {
+    public Trip(Integer id, Region region, Path path, Datasource datasource) {
         this.id = id;
-        this.id_region = id_region;
-        this.id_path = id_path;
-        this.id_datasource = id_datasource;
+        this.region = region;
+        this.path = path;
+        this.datasource = datasource;
     }
 
     public Integer getId() {
@@ -43,37 +75,37 @@ public class Trip {
         this.id = id;
     }
 
-    public Integer getId_region() {
-        return id_region;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setId_region(Integer id_region) {
-        this.id_region = id_region;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
-    public Integer getId_path() {
-        return id_path;
+    public Path getPath() {
+        return path;
     }
 
-    public void setId_path(Integer id_path) {
-        this.id_path = id_path;
+    public void setPath(Path path) {
+        this.path = path;
     }
 
-    public Integer getId_datasource() {
-        return id_datasource;
+    public Datasource getDatasource() {
+        return datasource;
     }
 
-    public void setId_datasource(Integer id_datasource) {
-        this.id_datasource = id_datasource;
+    public void setDatasource(Datasource datasource) {
+        this.datasource = datasource;
     }
 
     @Override
     public String toString() {
         return "Trip{" +
                 "id=" + id +
-                ", id_region=" + id_region +
-                ", id_path=" + id_path +
-                ", id_datasource=" + id_datasource +
+                ", region=" + region +
+                ", path=" + path +
+                ", datasource=" + datasource +
                 '}';
     }
 }

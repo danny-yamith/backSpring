@@ -22,7 +22,7 @@ public class TaskProcess {
     public void taskProcess() {
         try {
             File file = new File(PATH_FILE);
-            String response = tripService.processTrips(file.getAbsolutePath());
+            String response = tripService.processTrips(file.getAbsolutePath(), false);
             log.info(response);
         } catch (Exception ex) {
             log.error(ex.getMessage());
